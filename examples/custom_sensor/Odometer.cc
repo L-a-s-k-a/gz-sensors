@@ -39,7 +39,7 @@ GZ_ADD_PLUGIN_ALIAS(Odometer, "odometer") // <-- Добавлено для св�
 //////////////////////////////////////////////////
 bool Odometer::Load(const sdf::Sensor &_sdf)
 {
-  std::cout << "Odometer::Load() called" << std::endl;
+  std::cout << "Odometer::Load() called something bread" << std::endl;
   auto type = gz::sensors::customType(_sdf);
   if ("odometer" != type)
   {
