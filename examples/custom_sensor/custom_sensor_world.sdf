@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="odometer_test">
+    <!-- Земля -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground Plane</uri>
+    </include>
+
+    <!-- Модель с датчиком -->
+    <model name="test_vehicle">
+      <pose>0 0 0.1 0 0 0</pose>
+
+      <link name="chassis">
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.01</ixx><iyy>0.01</iyy><izz>0.01</izz>
+            <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <visual>
+          <geometry><box><size>0.5 0.3 0.1</size></box></geometry>
+        </visual>
+        <collision>
+          <geometry><box><size>0.5 0.3 0.1</size></box></geometry>
+        </collision>
+      </link>
+
+      <!-- Сенсор одометра -->
+      <link name="sensor_link">
+        <pose>0 0 0.05 0 0 0</pose>
+        <sensor name="odometer" type="custom">
+          <always_on>1</always_on>
+          <update_rate>100</update_rate>
+          <topic>/odometry</topic>  <!-- топик, куда публикуются данные -->
+          <plugin filename="libodometer.so">
+            <!-- Здесь можно передать параметры плагину, если они есть -->
+            <namespace>odom</namespace>
+          </plugin>
+        </sensor>
+      </link>
+    </model>
+  </world>
+</sdf>
