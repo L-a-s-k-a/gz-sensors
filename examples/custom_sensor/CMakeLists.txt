@@ -4,7 +4,10 @@ project(odometer)
 
 find_package(gz-cmake3 REQUIRED)
 find_package(gz-sensors8 REQUIRED)
+find_package(gz-plugin2 REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED Odometer.cc)
+
 target_link_libraries(${PROJECT_NAME}
-  PUBLIC gz-sensors8::gz-sensors8)
+  PUBLIC gz-sensors8::gz-sensors8
+  PRIVATE gz-plugin2::gz-plugin2)

@@ -24,13 +24,22 @@
 #include <gz/sensors/Noise.hh>
 #include <gz/sensors/Util.hh>
 
+#include <gz/plugin/Register.hh>      // <-- добавлено
+
 #include "Odometer.hh"
 
 using namespace custom;
 
+// Регистрируем класс Odometer как плагин с интерфейсом gz::sensors::Sensor
+GZ_ADD_PLUGIN(Odometer, gz::sensors::Sensor)
+// ВАЖНО: Вторым аргументом идет ИДЕНТИФИКАТОР (без кавычек),
+// который будет преобразован в строку "odometer".
+GZ_ADD_PLUGIN_ALIAS(Odometer, "odometer") // <-- Добавлено для связи с gz:type="odometer"
+
 //////////////////////////////////////////////////
 bool Odometer::Load(const sdf::Sensor &_sdf)
 {
+  std::cout << "Odometer::Load() called" << std::endl;
   auto type = gz::sensors::customType(_sdf);
   if ("odometer" != type)
   {
@@ -76,6 +85,7 @@ bool Odometer::Load(const sdf::Sensor &_sdf)
 //////////////////////////////////////////////////
 bool Odometer::Update(const std::chrono::steady_clock::duration &_now)
 {
+  std::cout << "Odometer::Update() called" << std::endl;
   gz::msgs::Double msg;
   *msg.mutable_header()->mutable_stamp() = gz::msgs::Convert(_now);
   auto frame = msg.mutable_header()->add_data();

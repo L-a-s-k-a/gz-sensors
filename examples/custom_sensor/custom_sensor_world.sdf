@@ -18,10 +18,10 @@
             <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
           </inertia>
         </inertial>
-        <visual>
+        <visual name="chassis_visual">
           <geometry><box><size>0.5 0.3 0.1</size></box></geometry>
         </visual>
-        <collision>
+        <collision name="chassis_collision">
           <geometry><box><size>0.5 0.3 0.1</size></box></geometry>
         </collision>
       </link>
@@ -29,12 +29,11 @@
       <!-- Сенсор одометра -->
       <link name="sensor_link">
         <pose>0 0 0.05 0 0 0</pose>
-        <sensor name="odometer" type="custom">
+        <sensor name="odometer" type="custom" gz:type="odometer">
           <always_on>1</always_on>
           <update_rate>100</update_rate>
-          <topic>/odometry</topic>  <!-- топик, куда публикуются данные -->
-          <plugin filename="libodometer.so">
-            <!-- Здесь можно передать параметры плагину, если они есть -->
+          <topic>/odom</topic>
+          <plugin filename="/home/laska/gz-sensors/examples/custom_sensor/build/libodometer.so">
             <namespace>odom</namespace>
           </plugin>
         </sensor>
